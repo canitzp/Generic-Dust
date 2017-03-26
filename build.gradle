@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+        classpath 'de.undercouch:gradle-download-task:3.2.0'
+    }
+}
+
+apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: 'de.undercouch.download'
+
+version = modVersion
+group = modGroup
+archivesBaseName = modBaseName
+
+sourceCompatibility = targetCompatibility = "1.8"
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+minecraft {
+    version = project.forgeVersion
+    runDir = "run"
+    mappings = project.mcpVersion
+    makeObfSourceJar = false
+}
+
+repositories {
+    maven { // Actually Additions
+        url = "http://maven.chaosfield.at"
+    }
+    maven { // JEI
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven { // IC2
+        url = "http://maven.ic2.player.to/"
+    }
+}
+
+dependencies {
+    //deobfCompile "mezz.jei:jei_" + project.minecraft_version + ":" + project.jei_version + ":api"
+    runtime "mezz.jei:jei_" + project.minecraft_version + ":" + project.jei_version
+    //deobfCompile "de.ellpeck.actuallyadditions:ActuallyAdditions-unstable:" + project.minecraft_version + "-" + project.actadd_version
+    compileOnly "net.industrial-craft:industrialcraft-2:" + project.ic2_version + ":dev"
+    //runtime "net.industrial-craft:industrialcraft-2:" + project.ic2_version + ":dev"
+
+    download {
+        src "https://minecraft.curseforge.com/projects/actually-additions/files/2392124/download"
+        dest "./libs/ActAdd.jar"
+    }
+    download {
+        src "https://minecraft.curseforge.com/projects/industrial-craft/files/2363525/download"
+        dest "./libs/IC2.jar"
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "mcmod.info"
+        expand "version": project.version, "mcversion": project.minecraft.version
+    }
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "mcmod.info"
+    }
+}

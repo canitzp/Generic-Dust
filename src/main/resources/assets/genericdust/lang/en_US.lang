@@ -1,0 +1,22 @@
+itemGroup.genericdust=Generic Dust
+
+#Categories
+genericdust.category.dust=Dust
+genericdust.category.crushed=Crushed
+genericdust.category.nugget=Nugget
+genericdust.category.purified=Purified
+genericdust.category.pile=Pile of
+
+#Materials
+genericdust.resource.coal=Coal
+genericdust.resource.iron=Iron
+genericdust.resource.gold=Gold
+genericdust.resource.lapis=Lapislazuli
+genericdust.resource.diamond=Diamond
+genericdust.resource.emerald=Emerald
+genericdust.resource.quartz=Quartz
+genericdust.resource.copper=Copper
+genericdust.resource.tin=Tin
+genericdust.resource.lead=Lead
+genericdust.resource.silver=Silver
+genericdust.resource.uranium=Uranium
